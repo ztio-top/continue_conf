@@ -2,34 +2,44 @@ name: Main Config
 version: 1.0.0
 schema: v1
 models:
-  - name: Gemini 3 Pro Preview
-    provider: gemini
-    model: gemini-3-pro-preview
-    apiKey: ${{ secrets.GEMINI_API_KEY }}
-    roles:
-      - chat
-      - edit
-      - apply
-    defaultCompletionOptions:
-      contextLength: 1048576
-      maxTokens: 65536
-    capabilities:
-      - tool_use
-      - image_input
-  - name: Gemini 3 Flash Preview
-    provider: gemini
-    model: gemini-3-flash-preview
-    apiKey: ${{ secrets.GEMINI_API_KEY }}
-    roles:
-      - chat
-      - edit
-      - apply
-    defaultCompletionOptions:
-      contextLength: 1048576
-      maxTokens: 65536
-    capabilities:
-      - tool_use
-      - image_input
-  - name: Autodetect
+  # -------------------------------------------------------------
+  # 对话与复杂推理
+  # -------------------------------------------------------------
+  - name: DeepSeek R1 70B (Mac Studio)
     provider: ollama
-    model: AUTODETECT
+    model: deepseek-r1:70b-llama-distill-q4_K_M
+    apiBase: http://${{ secrets.MAC_STUDIO_IP }}:11434
+    roles:
+      - chat
+      - edit
+      - apply
+      - summarize
+
+  - name: Qwen 3.6 27B (RTX 3090)
+    provider: ollama
+    model: qwen3.6:27b-q4_K_M
+    apiBase: http://${{ secrets.RTX3090_IP }}:11434
+    roles:
+      - chat
+      - edit
+      - apply
+
+  # -------------------------------------------------------------
+  # 实时代码补全
+  # -------------------------------------------------------------
+  - name: Qwen 2.5 Coder 1.5B (Mac Studio)
+    provider: ollama
+    model: qwen2.5-coder:1.5b
+    apiBase: http://${{ secrets.HP_ZBOOK_IP }}:11434
+    roles:
+      - autocomplete
+
+  # -------------------------------------------------------------
+  # 本地代码库向量检索
+  # -------------------------------------------------------------
+  - name: Qwen 3 Embedding 4B (HP ZBook)
+    provider: ollama
+    model: qwen3-embedding:4b
+    apiBase: http://${{ secrets.HP_ZBOOK_IP }}:11434
+    roles:
+      - embed
