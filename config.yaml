@@ -77,6 +77,7 @@ models:
     apiBase: ${{ secrets.OLLAMA_AMD_780M }}
     roles:
       - autocomplete
+      - chat
 
   # -------------------------------------------------------------
   # 本地代码库向量检索
@@ -87,3 +88,13 @@ models:
     apiBase: ${{ secrets.OLLAMA_AMD_780M }}
     roles:
       - embed
+
+  # -------------------------------------------------------------
+  # 重排序引擎 (Rerank) - 基于最新官方规范
+  # -------------------------------------------------------------
+  - name: BGE Reranker v2 M3 (HP ZBook)
+    provider: huggingface-tei
+    model: BAAI/bge-reranker-v2-m3
+    apiBase: ${{ secrets.OLLAMA_AMD_RERANK }}
+    roles:
+      - rerank
