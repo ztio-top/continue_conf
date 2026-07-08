@@ -1,0 +1,12 @@
+.continueignore
+.continuerc.json
+config.ts
+package.json
+tsconfig.json
+dev_data/
+index/autocompleteCache.sqlite
+index/
+sessions/
+sessions/sessions.json
+types/core/index.d.ts
+.env
